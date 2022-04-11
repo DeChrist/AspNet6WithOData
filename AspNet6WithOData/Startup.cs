@@ -1,6 +1,8 @@
+using AspNet6WithOData.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.OData;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -19,10 +21,10 @@ namespace AspNet6WithOData
         }
 
         public IConfiguration Configuration { get; }
-
+        
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddDbContext<BookStoreContext>(opt => opt.UseInMemoryDatabase("BookLists")); 
             services
                 .AddControllers()
                 .AddOData( options =>
